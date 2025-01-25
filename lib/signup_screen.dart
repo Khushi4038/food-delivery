@@ -1,84 +1,173 @@
 import 'package:flutter/material.dart';
-// ignore: unused_import
+import 'package:flutter_application_1/bottom_bar.dart';
+// Assuming 'PaymentPage' is the next step after signup
 import 'payment_page.dart';
+import 'login_screen.dart';
 
-// ignore: use_key_in_widget_constructors
-class SignupPage extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
+
+  @override
+  _SignUpScreenState createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  bool _isPasswordVisible = false;
+
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final isSmallScreen = size.width < 600;
+
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              "Fill in your bio to get started",
-              style: TextStyle(color: Colors.white, fontSize: 20),
+            Image.asset(
+              'assets/food_image.png', // Replace with your actual image asset
+              width: isSmallScreen ? 100 : 150,
+              height: isSmallScreen ? 100 : 150,
+            ),
+            const SizedBox(height: 20),
+            Text(
+              "Appetizing",
+              style: TextStyle(
+                color: Colors.green,
+                fontSize: isSmallScreen ? 24 : 28,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 10),
-            const Text(
-              "This data will be displayed in your account profile for security",
-              style: TextStyle(color: Colors.white54),
-            ),
-            const SizedBox(height: 30),
-            TextField(
-              style: const TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                hintText: "First Name",
-                hintStyle: const TextStyle(color: Colors.white54),
-                filled: true,
-                fillColor: Colors.white12,
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+            Text(
+              "Sign Up For Free",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: isSmallScreen ? 14 : 16,
               ),
             ),
             const SizedBox(height: 20),
+            // Name TextField
             TextField(
-              style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                hintText: "Last Name",
-                hintStyle: const TextStyle(color: Colors.white54),
+                hintText: "Name",
                 filled: true,
-                fillColor: Colors.white12,
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                fillColor: Colors.grey[800],
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide.none,
+                ),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
+            // Email TextField
             TextField(
-              style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                hintText: "Mobile Number",
-                hintStyle: const TextStyle(color: Colors.white54),
+                hintText: "Email",
                 filled: true,
-                fillColor: Colors.white12,
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                fillColor: Colors.grey[800],
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide.none,
+                ),
               ),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 10),
+            // Password TextField
+            TextField(
+              obscureText: !_isPasswordVisible,
+              decoration: InputDecoration(
+                hintText: "Password",
+                hintStyle: const TextStyle(color: Colors.grey),
+                prefixIcon: const Icon(Icons.lock, color: Colors.grey),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                    color: Colors.grey,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _isPasswordVisible = !_isPasswordVisible;
+                    });
+                  },
+                ),
+                filled: true,
+                fillColor: Colors.grey[800],
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            // Keep me signed in Checkbox
+            Row(
+              children: [
+                Checkbox(
+                  value: true,
+                  onChanged: (value) {},
+                  activeColor: Colors.green,
+                ),
+                const Text(
+                  "Keep Me Signed In",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            // Create Account Button
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                padding: EdgeInsets.symmetric(
+                  horizontal: isSmallScreen ? 30 : 50,
+                  vertical: isSmallScreen ? 12 : 15,
+                ),
               ),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => PaymentPage()));
+                // Navigate to PaymentPage (or the signup process page)
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MainScreen(),
+                  ),
+                );
               },
-              child: const Text("Next"),
+              child: Text(
+                "Create Account",
+                style: TextStyle(
+                  fontSize: isSmallScreen ? 14 : 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            // Already have an account? TextLink
+            GestureDetector(
+              onTap: () {
+                // Navigate back to LoginScreen
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginScreen(),
+                  ),
+                );
+              },
+              child: const Text(
+                "Already have an account?",
+                style: TextStyle(
+                  color: Colors.green,
+                ),
+              ),
             ),
           ],
-        ))
+        ),
+      ),
     );
   }
-  
-  PaymentPage() {}
-  
 }
