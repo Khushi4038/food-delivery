@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/exp_rst.dart';
-import 'package:flutter_application_1/filter_screen.dart';  // Add the ExploreMenuScreen import
+import 'package:flutter_application_1/filter_screen.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class ExploreMenu extends StatefulWidget {
+  const ExploreMenu({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<ExploreMenu> createState() => _ExploreMenuState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+class _ExploreMenuState extends State<ExploreMenu> with TickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -74,102 +74,57 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                children: [
-                  // Search TextField
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Search for food...',
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: Colors.grey,
-                          size: screenWidth * 0.06,
-                        ),
-                        filled: true,
-                        fillColor: Colors.grey[800],
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide.none,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: screenWidth * 0.03),
+  children: [
+    // Search TextField
+    Expanded(
+      child: TextField(
+        decoration: InputDecoration(
+          hintText: 'Search for food...',
+          prefixIcon: Icon(
+            Icons.search,
+            color: Colors.grey,
+            size: screenWidth * 0.06,
+          ),
+          filled: true,
+          fillColor: Colors.grey[800],
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide.none,
+          ),
+        ),
+      ),
+    ),
+    SizedBox(width: screenWidth * 0.03),
 
-                  // Filter Icon wrapped in GestureDetector for navigation
-                  GestureDetector(
-                    onTap: () {
-                      // Navigate to FilterScreen using MaterialPageRoute when the filter icon is tapped
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => FilterScreen()),
-                      );
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(screenWidth * 0.02),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[700],
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Icon(
-                        Icons.filter_list,
-                        color: Colors.white,
-                        size: screenWidth * 0.06,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+    // Filter Icon wrapped in GestureDetector for navigation
+    GestureDetector(
+      onTap: () {
+        // Navigate to FilterScreen using MaterialPageRoute when the filter icon is tapped
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => FilterScreen()),
+        );
+      },
+      child: Container(
+        padding: EdgeInsets.all(screenWidth * 0.02),
+        decoration: BoxDecoration(
+          color: Colors.grey[700],
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Icon(
+          Icons.filter_list,
+          color: Colors.white,
+          size: screenWidth * 0.06,
+        ),
+      ),
+    ),
+  ],
+),
+
               SizedBox(height: screenHeight * 0.03),
-              Container(
-                width: double.infinity,
-                height: screenHeight * 0.2,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: const DecorationImage(
-                    image: AssetImage('assets/banner_image.jpeg'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
+             
               SizedBox(height: screenHeight * 0.03),
-              sectionTitle("Nearest Chef", () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ExpRst()),
-                );
-              }),
-              SizedBox(height: screenHeight * 0.02),
-              SizedBox(
-                height: screenHeight * 0.25,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
-                      child: Container(
-                        width: screenWidth * 0.4,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[800],
-                          borderRadius: BorderRadius.circular(10),
-                          image: const DecorationImage(
-                            image: AssetImage('assets/chef_image.png'),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              SizedBox(height: screenHeight * 0.03),
-              sectionTitle("Popular Item", () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ExploreMenu()),
-                );
-              }),
+              sectionTitle("Popular Item", null),
               SizedBox(height: screenHeight * 0.02),
               ListView.builder(
                 shrinkWrap: true,
@@ -245,7 +200,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ),
             ),
           ),
-     ],
-);
+      ],
+    );
+  }
 }
-}
+
+
+
